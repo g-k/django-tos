@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.sites.models import Site, RequestSite
+from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -13,13 +13,18 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.utils.translation import ugettext_lazy as _
 
+try:
+    from django.contrib.sites.models import RequestSite
+except ImportError:
+    from django.contrib.sites.requests import RequestSite
+
 from tos.models import has_user_agreed_latest_tos, TermsOfService, UserAgreement
 
 # Django 1.4 compatability
 try:
     from django.contrib.auth import get_user_model
     USER_MODEL = get_user_model()
-except ImportError:
+except (AppRegistryNotReady, ImportError):
     from django.contrib.auth.models import User
     USER_MODEL = User
 

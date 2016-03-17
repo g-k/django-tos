@@ -1,4 +1,4 @@
-from django.core.exceptions import ValidationError
+from django.core.exceptions import AppRegistryNotReady, ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 try:
     from django.contrib.auth import get_user_model
     USER_MODEL = get_user_model()
-except ImportError:
+except (AppRegistryNotReady, ImportError):
     from django.contrib.auth.models import User
     USER_MODEL = User
 
