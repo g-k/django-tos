@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
+from django.utils.translation import ugettext_lazy as _
 
 from tos.models import has_user_agreed_latest_tos, TermsOfService, UserAgreement
 
