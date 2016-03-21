@@ -59,7 +59,7 @@ def _redirect_to(redirect_to):
 def check_tos(request, template_name='tos/tos_check.html',
               redirect_field_name=REDIRECT_FIELD_NAME,):
 
-    redirect_to = _redirect_to(request.REQUEST.get(redirect_field_name, ''))
+    redirect_to = _redirect_to(request.GET.get(redirect_field_name, ''))
     tos = TermsOfService.objects.get_current_tos()
     if request.method == "POST":
         if request.POST.get("accept", "") == "accept":
@@ -95,7 +95,7 @@ def login(request, template_name='registration/login.html',
           authentication_form=AuthenticationForm):
     """Displays the login form and handles the login action."""
 
-    redirect_to = request.REQUEST.get(redirect_field_name, '')
+    redirect_to = request.GET.get(redirect_field_name, '')
 
     if request.method == "POST":
         form = authentication_form(data=request.POST)
